@@ -12,14 +12,28 @@ import com.google.gson.Gson;
 
 import dto.GameDto;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GameClientEndpoint.
+ */
 @ApplicationScoped
 public class GameClientEndpoint implements IGameClientEndpoint {
 
+	/** The client. */
 	Client client = ClientBuilder.newClient();
+	
+	/** The uri. */
 	URI uri = URI.create("http://localhost:8080/HangmanServer/ep/game");
+	
+	/** The web target. */
 	WebTarget webTarget = client.target(uri);
+	
+	/** The g. */
 	Gson g = new Gson();
 
+	/**
+	 * Instantiates a new game client endpoint.
+	 */
 	public GameClientEndpoint() {
 		System.out.println("GameClientEndpoint created");
 	}
@@ -36,7 +50,10 @@ public class GameClientEndpoint implements IGameClientEndpoint {
 //		return "guess".equals(response);
 //	}
 
-	public boolean createGameReturnTrueIfGuess(long playerId, long opponentId) {
+	/* (non-Javadoc)
+ * @see feign.IGameClientEndpoint#createGameReturnTrueIfGuess(long, long)
+ */
+public boolean createGameReturnTrueIfGuess(long playerId, long opponentId) {
 		System.out.println("GameClientEndpoint::createGameReturnTrueIfGuess");
 		WebTarget target = webTarget.path(playerId + "/" + opponentId);
 
@@ -71,7 +88,10 @@ public class GameClientEndpoint implements IGameClientEndpoint {
 //		return p;
 //	}
 
-	public GameDto sendLetter(long playerId, String letter) {
+	/* (non-Javadoc)
+ * @see feign.IGameClientEndpoint#sendLetter(long, java.lang.String)
+ */
+public GameDto sendLetter(long playerId, String letter) {
 		System.out.println("GameClientEndpoint::sendLetter " + playerId + " > " + letter);
 		WebTarget target = webTarget.path("sendLetter/" + playerId + "/" + letter);
 		String response = target.request().accept(MediaType.TEXT_PLAIN).get(String.class);
@@ -99,7 +119,10 @@ public class GameClientEndpoint implements IGameClientEndpoint {
 //		return p;
 //	}
 
-	public GameDto updateWord(long playerId, String word) {
+	/* (non-Javadoc)
+ * @see feign.IGameClientEndpoint#updateWord(long, java.lang.String)
+ */
+public GameDto updateWord(long playerId, String word) {
 		System.out.println("GameClientEndpoint::updateWord " + playerId + " > " + word);
 
 		WebTarget target = webTarget.path("updateWord/" + playerId + "/" + word);
@@ -113,6 +136,9 @@ public class GameClientEndpoint implements IGameClientEndpoint {
 		return p;
 	}
 
+	/* (non-Javadoc)
+	 * @see feign.IGameClientEndpoint#getGame(long)
+	 */
 	public GameDto getGame(long playerId) {
 
 		System.out.println("GameClientEndpoint::getGame(EP=gameByPlayerId) playerId=" + playerId);

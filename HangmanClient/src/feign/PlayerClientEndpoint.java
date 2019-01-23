@@ -12,14 +12,28 @@ import com.google.gson.Gson;
 
 import dto.PlayerDto;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PlayerClientEndpoint.
+ */
 @ApplicationScoped
 public class PlayerClientEndpoint implements IPlayerClientEndpoint {
 	
+	/** The client. */
 	Client client = ClientBuilder.newClient();
+	
+	/** The uri. */
 	URI uri = URI.create("http://localhost:8080/HangmanServer/ep/players");
+	
+	/** The web target. */
 	WebTarget webTarget = client.target(uri);
+	
+	/** The g. */
 	Gson g = new Gson();
 	
+	/**
+	 * Instantiates a new player client endpoint.
+	 */
 	public PlayerClientEndpoint() {
 		System.out.println("PlayerClientEndpoint created");
 	}
@@ -36,6 +50,9 @@ public class PlayerClientEndpoint implements IPlayerClientEndpoint {
 //		
 //		return "guess".equals(response);
 //	}
+/* (non-Javadoc)
+ * @see feign.IPlayerClientEndpoint#getPlayerByName(java.lang.String)
+ */
 //	
 	public PlayerDto getPlayerByName(String playerName) {
 		System.out.println("HangmanClientEndpoint::getPlayerByName > "+playerName);
@@ -47,6 +64,9 @@ public class PlayerClientEndpoint implements IPlayerClientEndpoint {
 		return p;
 	}
 	
+	/* (non-Javadoc)
+	 * @see feign.IPlayerClientEndpoint#getPlayerById(long)
+	 */
 	public PlayerDto getPlayerById(long playerId) {
 		System.out.println("HangmanClientEndpoint::getPlayerById > "+playerId);
 		WebTarget target = webTarget.path("byId/"+playerId);
